@@ -72,16 +72,20 @@ export class PhotoStore extends CommonStore {
 
   @action
   like = () => {
-    this.highlightAction('like')
-    this.photos[this.current].like()
-    this.swipeIndex()
+    if (this.current < this.photos.length) {
+      this.highlightAction('like')
+      this.photos[this.current].like()
+      this.swipeIndex()
+    }
   }
 
   @action
   dislike = () => {
-    this.highlightAction('dislike')
-    this.photos[this.current].dislike()
-    this.swipeIndex()
+    if (this.current < this.photos.length) {
+      this.highlightAction('dislike')
+      this.photos[this.current].dislike()
+      this.swipeIndex()
+    }
   }
 
   @action
