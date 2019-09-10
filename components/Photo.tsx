@@ -53,11 +53,13 @@ export class PhotoComponent extends Component<Props> {
   }
 
   private handleDragEnd = (e, gestureState) => {
-    if (gestureState.dx > 50) {
+    const indexOffset = this.props.index - photoStore.current
+
+    if (gestureState.dx > 50 && !indexOffset) {
       this.dislike()
     }
 
-    if (gestureState.dx < -50) {
+    if (gestureState.dx < -50 && !indexOffset) {
       this.like()
     }
   }
@@ -120,8 +122,8 @@ const Container = posed(PhotoContainer)({
   },
   dragEnd: {
     x: 0,
-    transition: ({ value, toValue, gestureState }) => {
-      return gestureState.dx > 50 || gestureState.dx < -50
+    transition: ({ value, toValue, gestureState, indexOffset }) => {
+      return (gestureState.dx > 50 || gestureState.dx < -50) && !indexOffset
         ? Animated.spring(value, {
           toValue: (gestureState.dx > 0 ? 1 : -1) * RNScreen.width,
         })

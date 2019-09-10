@@ -19,7 +19,6 @@ export class PhotoModel {
     this.cameraName = photo.camera.full_name
   }
 
-
   @action
   like = () => {
     this.isLiked = true
